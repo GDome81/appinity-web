@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Appinity</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/icon.png">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<main class="narrow" style="text-align:center;padding:12vh 0">
+  <img src="assets/icon.png" alt="" style="width:96px;height:96px;border-radius:26px;box-shadow:0 20px 60px -10px rgba(224,69,123,.6)">
+  <h1 id="title">Fatto!</h1>
+  <p id="text">Stiamo tornando su Appinity…</p>
+  <p style="margin-top:28px"><a id="back" class="btn primary" href="appinity://auth">Torna su Appinity</a></p>
+  <p class="note" id="hint" style="margin-top:18px">Se l’app non si apre, torna tu su Appinity: l’accesso è già completato.</p>
+</main>
+<script>
+  const ok = new URLSearchParams(location.search).get('esito') !== 'errore';
+  if (!ok) {
+    document.getElementById('title').textContent = 'Accesso non riuscito';
+    document.getElementById('text').textContent = 'Torna su Appinity e riprova.';
+    document.getElementById('hint').hidden = true;
+  }
+  const mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  // Opened by the web app (new tab): just close it and the app tab takes over.
+  if (window.opener) { setTimeout(() => window.close(), 600); }
+  // Phone: hand back to the installed app.
+  if (mobile) { setTimeout(() => { location.href = 'appinity://auth?esito=' + (ok ? 'ok' : 'errore'); }, 300); }
+  else {
+    document.getElementById('back').hidden = true;
+    document.getElementById('text').textContent = ok
+      ? 'Puoi chiudere questa scheda: Appinity si è già aggiornata.'
+      : document.getElementById('text').textContent;
+    setTimeout(() => window.close(), 1500);
+  }
+</script>
+</body>
+</html>

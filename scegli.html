@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cosa faresti con me? · Appinity</title>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Scegli in segreto cosa ti piacerebbe fare insieme. Se la scelta è reciproca, si accende l’affinità.">
+  <meta property="og:title" content="Cosa faresti con me? 👀">
+  <meta property="og:description" content="Scegli in segreto un’attività. Se scelgo anch’io la stessa cosa, si accende l’affinità ✨">
+  <meta property="og:image" content="https://gdome81.github.io/appinity-web/assets/photos/amici.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/icon.png">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<main class="narrow" style="text-align:center;padding:12vh 0">
+  <img src="assets/icon.png" alt="" style="width:96px;height:96px;border-radius:26px;box-shadow:0 20px 60px -10px rgba(224,69,123,.6)">
+  <h1>Cosa faresti con me?</h1>
+  <p>Ti stiamo portando alla scelta segreta…</p>
+  <p style="margin-top:28px"><a id="go" class="btn primary" href="app/">Scegli in segreto</a></p>
+</main>
+<script>
+  // The card code travels in ?c=…; the web app opens directly on the choice.
+  const code = (new URLSearchParams(location.search).get('c') || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 16);
+  const target = code ? 'app/#/scegli/' + encodeURIComponent(code.toUpperCase()) : 'app/';
+  document.getElementById('go').href = target;
+  location.replace(target);
+</script>
+</body>
+</html>
